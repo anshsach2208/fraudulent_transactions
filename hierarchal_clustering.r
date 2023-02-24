@@ -14,8 +14,10 @@ df <- na.omit(df)
 
 
 cols <- select(df, -1)
-
+#print(cols)
 dist_mat <- dist(t(cols))
+
+print(dist_mat)
 hc <- hclust(dist_mat,method = "complete")
 
 # Plot the dendrogram
@@ -58,6 +60,10 @@ dist_mat_cos <- distance(as.matrix(t(cols)),method="cosine")
 true_dist_mat <- as.dist(dist_mat_cos)
 hc_cos <- hclust(true_dist_mat,method = "ward.D")
 
+dist_C <- stats::dist(Record_3D_DF_Norm, method="manhattan")
+HClust_Ward_CosSim_N_3D <- hclust(dist_C, method="ward.D2")
+plot(HClust_Ward_CosSim_N_3D, cex=.7, hang=-30,main = "Manhattan")
+rect.hclust(HClust_Ward_CosSim_N_3D, k=2)
 
 
 

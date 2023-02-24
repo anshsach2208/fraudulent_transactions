@@ -80,5 +80,9 @@ plot(subrules)
 #plot(subrules, method="graph", engine="interactive")
 plot(subrules, method="graph", engine="htmlwidget")
 
-
+# BeerRules <- apriori(data=FoodsKumar,parameter = list(supp=.001, conf=.01, minlen=2),
+#                      appearance = list(default="lhs", rhs="Beer"),
+#                      control=list(verbose=FALSE))
+# BeerRules <- sort(BeerRules, decreasing=TRUE, by="confidence")
+# inspect(BeerRules[1:4])
 
