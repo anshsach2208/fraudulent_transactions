@@ -21,10 +21,7 @@ library(tidyr)
 #install_github("mhahsler/arulesViz")
 ## RE: https://github.com/mhahsler/arulesViz
 
-##############
-## IF YOUR CODE BREAKS - TRY THIS
-##
-## Error in length(obj) : Method length not implemented for class rules 
+
 ## DO THIS: 
 ## (1) detach("package:arulesViz", unload=TRUE)
 ## (2) detach("package:arules", unload=TRUE)
@@ -35,11 +32,6 @@ library(arulesViz)
 ## To see if you have tcltk run this on the console...
 # capabilities()["tcltk"]
 #library(arulesViz)
-
-
-## YOUR working dir goes here...
-
-#df<-read.csv("~/Documents/GitHub/fraudulent_transactions/datasets/cleaned_text_data.csv")
 
 
 fraud_trans <- read.transactions("~/Documents/GitHub/fraudulent_transactions/Cleaned Dataset/cleaned_text_data.csv",
@@ -81,14 +73,26 @@ plot(subrules)
 plot(subrules, method="graph", engine="htmlwidget")
 
 purchase_items <- read.transactions("~/Documents/GitHub/fraudulent_transactions/Cleaned Dataset/transaction_data_arm.csv",
-                                 rm.duplicates = FALSE, 
+                                 rm.duplicates = FALSE,
                                  format = "basket",  ##if you use "single" also use cols=c(1,2)
                                  sep=",",  ## csv file
                                  cols=1) ## The dataset HAS row numbers
 inspect(purchase_items)
 
+
 itemFrequencyPlot(purchase_items, topN=20, type="absolute")
 
-ArulesK = arules::apriori(purchase_items, parameter = list(support=.001, 
-                                                        confidence=.001, minlen=1))
+
+
+ArulesK = arules::apriori(purchase_items, parameter = list(support=.0003, 
+                                                        confidence=.0001, minlen=2))
 inspect(ArulesK)
+
+SortedRulesK <- sort(ArulesK, by="confidence", decreasing=TRUE)
+inspect(SortedRulesK)
+(summary(SortedRulesK))
+
+subrulesK <- head(sort(SortedRulesK, by="lift"),10)
+plot(subrulesK)
+
+plot(subrulesK, method="graph", engine="htmlwidget")
