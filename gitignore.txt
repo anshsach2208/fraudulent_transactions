@@ -1,0 +1,3 @@
+creds/
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
