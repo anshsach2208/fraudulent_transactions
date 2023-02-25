@@ -50,8 +50,8 @@ fraud_trans <- read.transactions("~/Documents/GitHub/fraudulent_transactions/Cle
 inspect(fraud_trans)
 
 ##### Use apriori to get the RULES
-FrulesK = arules::apriori(fraud_trans, parameter = list(support=.05, 
-                                                       confidence=.1, minlen=2))
+FrulesK = arules::apriori(fraud_trans, parameter = list(support=.025, 
+                                                       confidence=.5, minlen=2))
 inspect(FrulesK)
 
 ## Plot of which items are most frequent
@@ -80,9 +80,15 @@ plot(subrules)
 #plot(subrules, method="graph", engine="interactive")
 plot(subrules, method="graph", engine="htmlwidget")
 
-# BeerRules <- apriori(data=FoodsKumar,parameter = list(supp=.001, conf=.01, minlen=2),
-#                      appearance = list(default="lhs", rhs="Beer"),
-#                      control=list(verbose=FALSE))
-# BeerRules <- sort(BeerRules, decreasing=TRUE, by="confidence")
-# inspect(BeerRules[1:4])
+purchase_items <- read.transactions("~/Documents/GitHub/fraudulent_transactions/Cleaned Dataset/transaction_data_arm.csv",
+                                 rm.duplicates = FALSE, 
+                                 format = "basket",  ##if you use "single" also use cols=c(1,2)
+                                 sep=",",  ## csv file
+                                 cols=1) ## The dataset HAS row numbers
+inspect(purchase_items)
 
+itemFrequencyPlot(purchase_items, topN=20, type="absolute")
+
+ArulesK = arules::apriori(purchase_items, parameter = list(support=.001, 
+                                                        confidence=.001, minlen=1))
+inspect(ArulesK)
