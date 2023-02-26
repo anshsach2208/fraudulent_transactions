@@ -3,6 +3,7 @@ library(cluster)    # clustering algorithms
 library(factoextra) # clustering visualization
 library(dendextend)
 library(philentropy)
+library(dplyr)
 
 
 
@@ -33,7 +34,7 @@ ac <- function(x) {
   agnes((t(cols)), method = x)$ac
 }
 
-map_dbl(m, ac)
+
 
 hc3 <- agnes((t(cols)), method = "ward")
 pltree(hc3, cex = 0.6, hang = -1, main = "Dendrogram of agnes") 
@@ -67,8 +68,5 @@ rect.hclust(HClust_Ward_CosSim_N_3D, k=2)
 
 
 
-fviz_dend(hc_cos, k = NULL, cex = 0.6, k_colors = NULL, rect = TRUE, horiz = TRUE)
+fviz_dend(hc_cos, k = NULL, cex = 0.6, k_colors = NULL, rect = TRUE, horiz = FALSE)
 
-
-
-t<-as.matrix(t(cols))
