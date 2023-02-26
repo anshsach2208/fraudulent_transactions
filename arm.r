@@ -42,7 +42,7 @@ fraud_trans <- read.transactions("~/Documents/GitHub/fraudulent_transactions/Cle
 inspect(fraud_trans)
 
 ##### Use apriori to get the RULES
-FrulesK = arules::apriori(fraud_trans, parameter = list(support=.025, 
+FrulesK = arules::apriori(fraud_trans, parameter = list(support=.03, 
                                                        confidence=.5, minlen=2))
 inspect(FrulesK)
 
@@ -58,7 +58,7 @@ inspect(SortedRulesK)
 ## Visualize
 ## tcltk
 
-subrulesK <- head(sort(SortedRulesK, by="lift"),10)
+subrulesK <- head(sort(SortedRulesK, by="confidence"),10)
 plot(subrulesK)
 
 plot(subrulesK, method="graph", engine="interactive")
