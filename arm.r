@@ -54,19 +54,35 @@ SortedRulesK <- sort(FrulesK, by="confidence", decreasing=TRUE)
 inspect(SortedRulesK)
 (summary(SortedRulesK))
 
+SortedRulesL <- sort(FrulesK, by="lift", decreasing=TRUE)
+inspect(SortedRulesL)
+(summary(SortedRulesL))
+
+SortedRulesS <- sort(FrulesK, by="support", decreasing=TRUE)
+inspect(SortedRulesS)
+(summary(SortedRulesS))
+
 
 ## Visualize
 ## tcltk
 
-subrulesK <- head(sort(SortedRulesK, by="confidence"),10)
+subrulesK <- head(sort(SortedRulesK, by="confidence"),15)
 plot(subrulesK)
 
-plot(subrulesK, method="graph", engine="interactive")
+subrulesL <- head(sort(SortedRulesL, by="lift"),15)
+plot(subrulesL)
+
+subrulesS <- head(sort(SortedRulesS, by="support"),15)
+plot(subrulesS)
+
+plot(subrulesK, method="graph", engine="htmlwidget")
+plot(subrulesL, method="graph", engine="htmlwidget")
+plot(subrulesS, method="graph", engine="htmlwidget")
 
 ## Visualize
 ## tcltk
 
-subrules <- head(sort(SortedRulesK, by="lift"),15)
+subrules <- head(sort(SortedRulesK, by="confidence"),15)
 plot(subrules)
 
 #plot(subrules, method="graph", engine="interactive")
@@ -84,15 +100,41 @@ itemFrequencyPlot(purchase_items, topN=20, type="absolute")
 
 
 
-ArulesK = arules::apriori(purchase_items, parameter = list(support=.0003, 
-                                                        confidence=.0001, minlen=2))
+ArulesK = arules::apriori(purchase_items, parameter = list(support=.0005, 
+                                                        confidence=.03, minlen=2))
 inspect(ArulesK)
 
 SortedRulesK <- sort(ArulesK, by="confidence", decreasing=TRUE)
 inspect(SortedRulesK)
 (summary(SortedRulesK))
 
-subrulesK <- head(sort(SortedRulesK, by="lift"),10)
+
+SortedRulesL <- sort(ArulesK, by="lift", decreasing=TRUE)
+inspect(SortedRulesL)
+(summary(SortedRulesL))
+
+SortedRulesS <- sort(ArulesK, by="support", decreasing=TRUE)
+inspect(SortedRulesS)
+(summary(SortedRulesS))
+
+
+## Visualize
+## tcltk
+
+subrulesK <- head(sort(SortedRulesK, by="confidence"),15)
+plot(subrulesK)
+
+subrulesL <- head(sort(SortedRulesL, by="lift"),15)
+plot(subrulesL)
+
+subrulesS <- head(sort(SortedRulesS, by="support"),15)
+plot(subrulesS)
+
+plot(subrulesK, method="graph", engine="htmlwidget")
+plot(subrulesL, method="graph", engine="htmlwidget")
+plot(subrulesS, method="graph", engine="htmlwidget")
+
+subrulesK <- head(sort(SortedRulesK, by="confidence"),15)
 plot(subrulesK)
 
 plot(subrulesK, method="graph", engine="htmlwidget")
